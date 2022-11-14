@@ -43,7 +43,7 @@ async def on_startup(_):
     create_table()
 
 
-@dp.message_handler(content_types="photo", chat_type="group")
+@dp.message_handler(content_types="photo")
 async def photo_message(message: Message):
     try:
         add_content(message.photo[-1].file_id, "photo", chats[message.chat.id])
@@ -52,8 +52,7 @@ async def photo_message(message: Message):
         pass
 
 
-
-@dp.message_handler(content_types="animation", chat_type="group")
+@dp.message_handler(content_types="animation")
 async def gif_message(message: Message):
     try:
         add_content(message.photo[-1].file_id, "gif", chats[message.chat.id])
