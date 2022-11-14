@@ -16,9 +16,11 @@ with closing(sqlite3.connect(database)) as connection:
     mem = cursor.fetchone()
     if mem is None:
         reserv_photo = open(os.path.join("reserv/memdelo", random.choice(os.listdir("reserv/memdelo"))), "rb")
+        name_photo = reserv_photo.name
         files = {"photo": reserv_photo}
-        requests.post(url + "/sendPhoto", json={"chat_id": memes_channel_id}, files=files)
-        os.remove(reserv_photo.name)
+        res = requests.post(url + "/sendPhoto", data={"chat_id": memes_channel_id}, files=files)
+        reserv_photo.close()
+        os.remove(name_photo)
     else:
         cursor.execute("DELETE FROM content WHERE id = ?", (int(mem[0]),))
         connection.commit()
@@ -32,8 +34,10 @@ with closing(sqlite3.connect(database)) as connection:
     cat = cursor.fetchone()
     if cat is None:
         reserv_photo = open(os.path.join("reserv/catdelo", random.choice(os.listdir("reserv/catdelo"))), "rb")
+        name_photo = reserv_photo.name
         files = {"photo": reserv_photo}
-        requests.post(url + "/sendPhoto", json={"chat_id": cat_channel_id}, files=files)
+        requests.post(url + "/sendPhoto", data={"chat_id": cat_channel_id}, files=files)
+        reserv_photo.close()
         os.remove(reserv_photo.name)
     else:
         cursor.execute("DELETE FROM content WHERE id = ?", (int(cat[0]),))
