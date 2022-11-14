@@ -51,7 +51,6 @@ async def photo_message(message: Message):
     except KeyError:
         pass
 
-    await message.answer_photo(message.photo[-1].file_id)
 
 
 @dp.message_handler(content_types="animation", chat_type="group")
