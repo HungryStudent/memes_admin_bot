@@ -30,7 +30,8 @@ async def main():
                 await bot.send_photo(memes_channel_id, photo=cat[1])
             else:
                 await bot.send_animation(memes_channel_id, animation=cat[1])
-
+    session = await bot.get_session()
+    await session.close()
 
 if __name__ == "__main__":
     asyncio.run(main())
