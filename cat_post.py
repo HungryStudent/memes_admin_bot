@@ -20,16 +20,16 @@ async def main():
         if cat is None:
             reserv_photo = open(os.path.join("reserv/catdelo", random.choice(os.listdir("reserv/catdelo"))), "rb")
             name_photo = reserv_photo.name
-            await bot.send_photo(memes_channel_id, photo=reserv_photo)
+            await bot.send_photo(cat_channel_id, photo=reserv_photo)
             reserv_photo.close()
             os.remove(name_photo)
         else:
             cursor.execute("DELETE FROM content WHERE id = ?", (int(cat[0]),))
             connection.commit()
             if cat[2] == "photo":
-                await bot.send_photo(memes_channel_id, photo=cat[1])
+                await bot.send_photo(cat_channel_id, photo=cat[1])
             else:
-                await bot.send_animation(memes_channel_id, animation=cat[1])
+                await bot.send_animation(cat_channel_id, animation=cat[1])
     session = await bot.get_session()
     await session.close()
 
