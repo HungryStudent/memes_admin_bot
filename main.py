@@ -47,7 +47,6 @@ async def on_startup(_):
 async def photo_message(message: Message):
     try:
         add_content(message.photo[-1].file_id, "photo", chats[message.chat.id])
-        await message.answer("Запись добавлена")
     except KeyError:
         pass
 
@@ -56,7 +55,6 @@ async def photo_message(message: Message):
 async def gif_message(message: Message):
     try:
         add_content(message.photo[-1].file_id, "gif", chats[message.chat.id])
-        await message.answer("Запись добавлена")
     except KeyError:
         pass
 
